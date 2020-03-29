@@ -9,8 +9,25 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var value: Double = 0.5
+    @State private var isPresented = false
     var body: some View {
-        Text("Hello, World!")
+        
+        VStack {
+            Text("Ma valeur : \(value)")
+            Button(action: {
+                self.isPresented = true
+            }) {
+                Text("Ajouter")
+            }
+            
+            Slider(value: $value)
+        }.sheet(isPresented: $isPresented, onDismiss: {
+            print("Dismiss")
+        }) {
+            DetailView(value: self.$value)
+        }
     }
 }
 
